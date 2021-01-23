@@ -1,0 +1,60 @@
+
+in & out
+
+- Translation: [7.312, 14.925, 0.000]
+- Rotation: in Quaternion [0.000, 0.000, 0.709, 0.705]
+
+- Translation: [9.136, 14.963, 0.000]
+- Rotation: in Quaternion [0.000, 0.000, 0.735, 0.678]
+
+in & out onder
+
+- Translation: [9.750, 13.187, 0.000]
+- Rotation: in Quaternion [0.000, 0.000, -0.713, 0.701]
+
+in & out chargen
+
+- Translation: [5.701, 17.490, 0.000]
+- Rotation: in Quaternion [0.000, 0.000, 0.685, 0.728]
+
+linksboven in
+
+- Translation: [12.660, 21.399, 0.000]
+- Rotation: in Quaternion [0.000, 0.000, -0.721, 0.693]
+
+linksboven out
+
+- Translation: [12.237, 14.727, 0.000]
+- Rotation: in Quaternion [0.000, 0.000, 0.706, 0.708]
+
+linksboven chargen
+
+- Translation: [13.744, 15.732, 0.000]
+- Rotation: in Quaternion [0.000, 0.000, 0.709, 0.705]
+
+rechtsboven in
+
+- Translation: [20.629, 14.168, 0.000]
+- Rotation: in Quaternion [0.000, 0.000, 0.699, 0.715]
+
+rechtsboven out
+
+- Translation: [20.951, 20.888, 0.000]
+- Rotation: in Quaternion [0.000, 0.000, -0.699, 0.715]
+
+
+rechtsboven chargen
+
+- Translation: [19.109, 15.235, 0.000]
+- Rotation: in Quaternion [0.000, 0.000, 0.710, 0.705]
+
+onder in
+
+- Translation: [13.986, 4.832, 0.000]
+- Rotation: in Quaternion [0.000, 0.000, 0.704, 0.710]
+
+onder out
+
+- Translation: [14.547, 11.371, 0.000]
+- Rotation: in Quaternion [0.000, 0.000, -0.701, 0.713]
+

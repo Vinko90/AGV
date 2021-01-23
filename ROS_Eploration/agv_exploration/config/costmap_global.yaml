@@ -1,0 +1,11 @@
+# File adapted from: 
+# agv_bringup/config/navigation/costmap_global.yaml
+
+global_frame: /map #safe
+rolling_window: false
+track_unknown_space: true
+
+plugins:
+  # - {name: static_layer,    type: 'costmap_2d::StaticLayer'}
+  - {name: obstacle_layer,  type: 'costmap_2d::ObstacleLayer'}
+  - {name: inflation_layer, type: 'costmap_2d::InflationLayer'}

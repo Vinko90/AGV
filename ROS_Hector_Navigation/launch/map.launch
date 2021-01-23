@@ -1,0 +1,39 @@
+<launch>
+<arg name="model" default="$(find agv_hector_mapping)/urdf/agv.urdf"/>
+<param name="robot_description" textfile="$(arg model)" /> 
+ <node name="stage" pkg="stage_ros" type="stageros" args="$(find agv_hector_mapping)/world/custom.world"/>
+ <node name="slam_gmapping" pkg="gmapping" type="slam_gmapping">
+ <remap from="scan" to="base_scan"/>
+ </node>
+<node name="rviz" pkg="rviz" type="rviz" args="-d $(find agv_hector_mapping)/rviz/agvmap.rviz"/> 
+
+
+<arg name="robot_name" default=""/>
+  <arg name="cmd_vel_topic" default="cmd_vel" />
+
+  <param name="tf_prefix" value="$(arg robot_name)" />
+  
+  <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+
+    <!-- move_base config -->
+    <rosparam file="$(find agv_hector_mapping)/config/navigation/planner.yaml" />
+
+    <!-- common costmap config -->
+    <rosparam file="$(find agv_hector_mapping)/config/navigation/costmap_common.yaml" ns="global_costmap" />
+    <rosparam file="$(find agv_hector_mapping)/config/navigation/costmap_common.yaml" ns="local_costmap" />
+
+    <!-- local costmap config -->
+    <rosparam file="$(find agv_hector_mapping)/config/navigation/costmap_local.yaml" ns="local_costmap" />
+
+    <!-- global costmap config -->
+    <rosparam file="$(find agv_hector_mapping)/config/navigation/costmap_global.yaml" ns="global_costmap"/>
+    
+    <remap from="cmd_vel" to="$(arg cmd_vel_topic)"/>    
+
+  </node>
+  <node pkg="agv_hector_mapping" type="agv_hector_exploration" name="agv_hector_exploration" output="screen">
+      <rosparam file="$(find agv_hector_mapping)/config/hector/costmap.yaml" command="load" />
+  </node>
+</launch>
+
+

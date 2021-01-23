@@ -1,0 +1,64 @@
+#!/usr/bin/env python
+
+import rospy
+import pandas as pd
+import numpy as np
+
+from math import sqrt
+from nav_msgs.srv import GetPlan, GetPlanRequest
+from geometry_msgs.msg import PoseStamped, Pose, Point, Quaternion
+from std_msgs.msg import Header
+
+def get_data():
+    return pd.read_csv('../data/points_of_interest.csv',
+                       index_col=0, header=0)
+
+def pd_to_ros(point, rotation):
+    pos = Pose(position=Point(*point), orientation=Quaternion(*rotation))
+    pose = PoseStamped(header=Header(frame_id='map'),
+                       pose=pos)
+
+    return pose
+
+if __name__ == "__main__":
+    rospy.init_node('calculate_distances')
+    rospy.wait_for_service('/robot_0/move_base/make_plan')
+    get_plan = rospy.ServiceProxy('/robot_0/move_base/make_plan', GetPlan)
+
+
+    df = get_data()
+
+    # print header
+
+    print 'from',
+    for _, row1 in df.iterrows():
+        print row1.name,
+    print
+
+    for _, row1 in df.iterrows():
+        print row1.name,
+
+        pose1 = pd_to_ros(row1[['x', 'y', 'z']],
+                          row1[['r', 'i', 'j', 'k']])
+        for _, row2 in df.iterrows():
+            pose2 = pd_to_ros(row2[['x', 'y', 'z']],
+                              row2[['r', 'i', 'j', 'k']])
+
+
+            plan = get_plan(GetPlanRequest(start=pose1, goal=pose2))
+
+            
+            # import ipdb; ipdb.set_trace()
+            total = 0
+            for i, pose in enumerate(plan.plan.poses[:-1]):
+                next_pose = plan.plan.poses[i+1]
+                x = pose.pose.position.x
+                y = pose.pose.position.y
+                xi = next_pose.pose.position.x
+                yi = next_pose.pose.position.y
+
+                l = sqrt((xi - x) ** 2 + (yi - y) ** 2)
+                total += l
+
+            print round(total, 2),
+        print

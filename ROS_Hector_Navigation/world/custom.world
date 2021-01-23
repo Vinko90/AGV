@@ -1,0 +1,20 @@
+include "common.inc"
+include "agv.inc"
+
+# height: 6865 px = 30280 mm
+# width:  6350 px = 28008 mm
+
+# load an environment bitmap
+floorplan
+(
+  name "custom"
+  bitmap "custom_loc.pgm"
+  size [ 28.008 30.280 0.500 ]
+  pose [ 14.004 15.140 0.000 0.000 ]
+)
+
+# throw in a robot
+agv( pose [  5.912 8.708 0.000 90.000 ] name "agv_0" color "pale green")
+
+#throw in an obstacle
+human(pose [16.600 13.166 0.000 0.000] name "ov" color "red")

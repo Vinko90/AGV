@@ -1,0 +1,18 @@
+include "../../config/common.inc"
+include "../../config/agv.inc"
+
+# load an environment bitmap
+floorplan
+(
+  name "maze"
+  bitmap "maze.png"
+  size [25.000 25.000 1.0]
+  pose [0.0 0.0 0.000 0.000 ]
+)
+
+# throw in a robot
+agv( pose [ -6.5 3.0 0.000 0.000] name "agv_0" color "pale green")
+
+#throw in an obstacle
+#human(pose [16.600 13.166 0.000 0.000] name "ov" color "red")
+

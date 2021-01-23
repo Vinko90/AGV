@@ -1,0 +1,6 @@
+<launch>
+    <param name="test_timeout" type="int" value="1800" />
+    <param name="working_folder" type="str" value="/home/agv/gitlab/catkin_ws/src/" />
+    <param name="output_folder" type="str" value="/home/agv/gitlab/" />
+    <node pkg="agv_exploration_test" type="agv_exploration_test" name="agv_exploration_test" output="screen" />
+</launch>

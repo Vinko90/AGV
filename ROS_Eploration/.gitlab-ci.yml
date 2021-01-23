@@ -1,0 +1,31 @@
+variables:
+    CATKIN_WS: "/home/agv/gitlab/catkin_ws/"
+
+before_script:
+    # Delete the old workspace if it exist, so we make sure we start clean
+    - rm -r -f $CATKIN_WS
+    # Source the ROS configuration
+    - source /opt/ros/kinetic/setup.bash
+    # Create the catkin workspace and initialize it
+    - mkdir -p $CATKIN_WS/src
+    # Copy the agv-exploration checkout except for the .git folder
+    - rsync -av -q -r --force --progress --no-perms -O . $CATKIN_WS/src/agv-exploration --exclude .git
+    - rm -r -f ../../../builds
+    # Initialize the workspace
+    - cd $CATKIN_WS/src
+    - catkin_init_workspace
+    # Build the workspace
+    - cd ../
+    - catkin_make
+    # Source the configuration for the workspace
+    - source devel/setup.bash
+
+stages:
+    - test
+
+test:
+    stage: test
+    script:
+        - roslaunch agv_exploration_test agv_exploration_test.launch
+        - pkill roslaunch
+        - pkill roscore

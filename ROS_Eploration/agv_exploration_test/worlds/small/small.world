@@ -1,0 +1,21 @@
+include "../../config/common.inc"
+include "../../config/agv.inc"
+
+# height: 6865 px = 30280 mm
+# width:  6350 px = 28008 mm
+
+# load an environment bitmap
+floorplan
+(
+  name "small"
+  bitmap "small.png"
+  size [25.000 25.000 1.0]
+  pose [7.0 9.0 0.000 0.000 ]
+)
+
+# throw in a robot
+agv( pose [ -2.0 -2.0 0.000 0.000] name "agv_0" color "pale green")
+
+#throw in an obstacle
+#human(pose [16.600 13.166 0.000 0.000] name "ov" color "red")
+

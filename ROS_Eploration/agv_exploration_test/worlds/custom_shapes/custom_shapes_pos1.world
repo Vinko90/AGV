@@ -1,0 +1,18 @@
+include "../../config/common.inc"
+include "../../config/agv.inc"
+
+# height: 6865 px = 30280 mm
+# width:  6350 px = 28008 mm
+
+# load an environment bitmap
+floorplan
+(
+  name "custom_shapes"
+  bitmap "custom_shapes.png"
+  size [100.000 60.000 1.0]
+  pose [7.0 9.0 0.000 0.000 ]
+)
+
+# throw in a robot
+agv( pose [ 0 0 0.000 0.000] name "agv_0" color "pale green")
+

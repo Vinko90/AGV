@@ -1,0 +1,29 @@
+include "../../config/common.inc"
+include "../../config/agv.inc"
+
+# set the resolution of the underlying raytrace model in meters
+resolution 0.02
+
+interval_sim 25  # ms
+
+window
+( 
+  size [ 512 512 ]
+  scale 20.026
+  show_data 1
+)
+
+# load an environment bitmap
+floorplan
+( 
+  name "building_2"
+  bitmap "building_2.pgm"
+  size [42.500 35.000 0.500]  
+  pose [ 16.260 12.510 0.000 0.000 ]        
+)
+
+# throw in a robot
+agv( pose [  8.682 13.771 0.000 45.000 ] name "agv_0" color "pale green")
+
+#throw in an obstacle
+#human(pose [16.600 13.166 0.000 0.000] name "ov" color "red")

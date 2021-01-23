@@ -1,0 +1,71 @@
+<!-- You must install the nav2d packages before you can use this -->
+
+<launch>
+    <arg name="stageArgs" default="" />
+    <arg name="isTest" default="false" />
+
+	<!-- Some general parameters -->
+	<param name="use_sim_time" value="true" />
+	<arg name="robot_name" default="1agv" />
+	<rosparam file="$(find agv_exploration)/param/ros.yaml"/> <!-- custom definitions of topics services and frames -->
+
+    <group if="$(arg isTest)">
+	    <!-- Start Stage simulator with a given environment -->
+        <node name="Stage" pkg="stage_ros" type="stageros" args="-g $(arg stageArgs)">
+		    <param name="base_watchdog_timeout" value="0" />
+	    </node>
+    </group>
+
+    <group unless="$(arg isTest)">
+	    <!-- Start Stage simulator with a given environment -->
+        <node name="Stage" pkg="stage_ros" type="stageros" args="$(arg stageArgs)">
+		    <param name="base_watchdog_timeout" value="0" />
+	    </node>  
+
+        <!-- Start AGV Robot in RVIZ-->
+	    <!--<include file="$(find agv_simulator)/launch/agv.launch" />-->
+		
+		<!-- Launch the robot model -->
+		<param name="robot_description" command="$(find xacro)/xacro --inorder '$(find agv_description)/urdf/description.xacro'" />
+			
+		<node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher">
+			<param name="tf_prefix" value="$(arg robot_name)" />
+		</node>
+
+		<!-- TODO: on real robot joint_state_publisher is not needed -->
+		<node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />
+		<!-- RVIZ to view the visualization (Single AGV) -->
+		<node name="RVIZ" pkg="rviz" type="rviz" args=" -d $(find agv_exploration_test)/config/1agv.rviz" />
+
+    </group>
+
+	<!-- Start the Operator to control the simulated robot -->
+	<node name="Operator" pkg="nav2d_operator" type="operator" >
+		<remap from="scan" to="base_scan"/>
+		<rosparam file="$(find agv_exploration)/param/operator.yaml"/>
+
+        <!-- THIS IS WHERE THE COSTMAP SETTINGS ARE LOADED IN NAV2D -->
+		<rosparam file="$(find agv_exploration)/config/costmap_common.yaml" ns="local_map" />
+		<rosparam file="$(find agv_exploration)/config/costmap_local.yaml" ns="local_map" />
+		<!--<rosparam file="$(find agv_exploration)/config/costmap_global.yaml" ns="global_map" /> -->
+        <!-- END OF LOADING TEST ENVIRONMENT COSTMAP SETTINGS -->
+	</node>
+
+	<!-- Start Mapper to genreate map from laser scans -->
+	<node name="Mapper" pkg="nav2d_karto" type="mapper">
+		<remap from="scan" to="base_scan"/>
+		<rosparam file="$(find agv_exploration)/param/mapper.yaml"/>
+	</node>
+
+	<!-- Start the Navigator to move the robot autonomously -->
+	<node name="Navigator" pkg="nav2d_navigator" type="navigator">
+		<rosparam file="$(find agv_exploration)/param/navigator.yaml"/>
+	</node>
+
+	<node name="GetMap" pkg="nav2d_navigator" type="get_map_client" />
+	<node name="Explore" pkg="nav2d_navigator" type="explore_client" />
+	<node name="SetGoal" pkg="nav2d_navigator" type="set_goal_client" />
+	
+	<node name="agv_exploration" pkg="agv_exploration" type="agv_exploration" output="screen" />
+
+</launch>

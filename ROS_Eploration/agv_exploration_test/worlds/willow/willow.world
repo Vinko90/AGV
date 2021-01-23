@@ -1,0 +1,22 @@
+include "../../config/common.inc"
+include "../../config/agv.inc"
+
+# height: 6865 px = 30280 mm
+# width:  6350 px = 28008 mm
+
+# load an environment bitmap
+floorplan
+(
+  name "willow"
+  bitmap "willow.pgm"
+  size [54.000 58.700 0.500]
+  scale 0.2267
+  pose [ -24.250 28.077 0.000 90.000 ]
+)
+
+# throw in a robot
+agv( pose [ -11.277 23.266 0.000 180.000 ] name "agv_0" color "pale green")
+
+#throw in an obstacle
+#human(pose [16.600 13.166 0.000 0.000] name "ov" color "red")
+

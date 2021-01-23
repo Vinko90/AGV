@@ -1,0 +1,60 @@
+# File adapted from:
+# https://github.com/utexas-bwi/multi_map_navigation/blob/master/stage_multi_map_navigation/move_base_config/costmap_common_params.yaml
+# AND agv_bringup/config/navigation/costmap_common.yaml
+
+# Coordinate frame 
+robot_base_frame: base_link #safe
+transform_tolerance: 0.1
+
+#set if you want the voxel map published
+publish_voxel_map: true
+
+# Robot footprint
+footprint: [[-0.500,-0.450],[ 0.500, -0.450],[ 0.500, 0.450],[-0.500, 0.450]]
+footprint_padding: 0.05
+robot_radius: 0.7 #0.6726812023536856 diagonal from center of robot to corner according to footprint
+
+# Default Costmap parameters
+update_frequency: 5.0
+publish_frequency: 2.0
+
+# #set to true if you want to initialize the costmap from a static map
+static_map: false
+map_type: costmap
+
+# Obstacle Global Filtering Parameters, applies to all sensors
+min_obstacle_height: 0.0
+max_obstacle_height: 1.2 #0.60
+obstacle_range: 10.0 # max obstacle insertion range
+raytrace_range: 20.0 # max obstacle raytrace out range
+
+
+
+# Specific Costmap configurations
+lethal_cost_threshold: 100 # only applicable to static_map
+
+# static_layer:
+#     map_topic: map
+#     subscribe_to_updates: true
+
+obstacle_layer:
+  observation_sources: scan
+  scan:
+    topic: base_scan
+    data_type: LaserScan
+    expected_update_rate: 0.5
+    observation_persistence: 0.0
+    marking: true
+    clearing: true
+    max_obstacle_height: 1.2
+    min_obstacle_height: 0.08
+
+# robot length: 1.1 (including padding)
+# robot width: 1.0 (including padding)
+# distance to corner: 0.74
+
+inflation_layer:   
+    inflation_radius: 1.6 #turn radius is 0.7 so inflation radius needs to be bigger 2x circumscribed_radius
+    inscribed_radius: 0.58 # radius middle to length edge including padding = 0.55
+    circumscribed_radius: 0.78 #0.74 distance to corner including padding so set a bit higher
+    cost_scaling_factor: 4.0 # cost_scaling_factor multiplied by negative, so increasing the factor will decrease the resulting cost values.

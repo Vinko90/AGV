@@ -1,0 +1,13 @@
+from warehouse_1 warehouse_2 warehouse_south warehouse_charge_point northeast_in northeast_out northeast_chargen northwest_in northwest_out northwest_charge_point south_in south_out
+warehouse_1 0.03 2.06 3.11 4.16 11.57 5.33 7.68 13.7 20.32 12.2 17.57 8.33
+warehouse_2 2.06 0.04 1.99 6.27 9.53 3.48 5.9 11.99 18.27 10.57 15.92 6.7
+warehouse_south 3.01 1.96 0.06 7.05 9.84 3.09 5.29 11.27 18.61 9.92 14.85 5.63
+warehouse_charge_point 4.17 6.24 7.02 0.04 15.6 9.36 11.3 17.71 24.35 16.29 21.57 12.35
+northeast_in 11.46 9.4 9.77 15.57 0.05 7.57 11.4 17.66 8.73 16.19 21.86 12.76
+northeast_out 5.33 3.43 3.08 9.42 8.93 0.05 2.35 8.67 17.7 7.18 12.84 4.17
+northeast_chargen 7.68 5.85 5.3 11.74 11.51 2.36 0.05 7.29 20.28 5.65 13.03 4.49
+northwest_in 13.68 11.96 11.14 17.8 17.76 8.74 7.36 0.03 26.49 2.21 13.39 6.84
+northwest_out 20.22 18.15 18.52 24.29 8.66 17.69 20.19 26.36 0.04 24.96 30.62 21.51
+northwest_charge_point 12.23 10.33 9.84 16.32 16.22 7.12 5.64 2.29 24.97 0.04 12.93 6.07
+south_in 17.56 15.9 14.92 21.68 21.92 13.13 13.04 13.39 30.7 12.92 0.05 9.43
+south_out 8.11 6.69 5.7 12.48 12.85 4.16 4.5 6.95 21.63 6.1 9.4 0.05

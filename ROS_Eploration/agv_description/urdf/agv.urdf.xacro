@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<robot name="agv_robot" xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <!-- Included URDF/XACRO Files -->
+  <xacro:include filename="$(find agv_description)/urdf/wheel.urdf.xacro" />
+  <xacro:include filename="$(find agv_description)/urdf/materials.urdf.xacro" />
+
+  <!-- Base Size -->
+  <xacro:property name="base_x_size" value="$(arg base_x_size)" />
+  <xacro:property name="base_y_size" value="$(arg base_y_size)" />
+  <xacro:property name="base_z_size" value="$(arg base_z_size)" />
+
+  <!-- offset from the base_link to the bottom of the base block -->
+  <xacro:property name="base_x_offset" value="$(arg base_x_offset)" />
+  <xacro:property name="base_z_offset" value="$(arg base_z_offset)" />
+
+  <!-- Wheel Properties -->
+  <xacro:property name="wheel_length" value="0.080" />
+  <xacro:property name="wheel_radius" value="0.125" />
+
+  <!-- Wheel Mounting Positions -->
+  <xacro:property name="track" value="0.750" />
+  <xacro:property name="wheel_vertical_offset" value="${wheel_radius}" />
+
+  <xacro:macro name="agv_robot">
+
+    <!-- Base link is the center of the robot's bottom plate -->
+    <link name="base_link">
+      <visual>
+        <origin xyz="${base_x_offset} 0 ${base_z_size/2 + base_z_offset}" rpy="0 0 0" />
+        <geometry>
+          <box size="${base_x_size} ${base_y_size} ${base_z_size}"/>
+        </geometry>
+        <material name="Base" />
+      </visual>
+      <collision>
+        <origin xyz="${base_x_offset} 0 ${base_z_size/2 + base_z_offset}" rpy="0 0 0" />
+        <geometry>
+          <box size="${base_x_size} ${base_y_size} ${base_z_size}"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <!-- wheel macros -->
+    <xacro:agv_wheel wheel_prefix="left">
+      <origin xyz="0 ${track/2} ${wheel_vertical_offset}" rpy="0 0 0" />
+    </xacro:agv_wheel>
+    <xacro:agv_wheel wheel_prefix="right">
+      <origin xyz="0 ${-track/2} ${wheel_vertical_offset}" rpy="0 0 0" />
+    </xacro:agv_wheel>
+
+  </xacro:macro>
+
+</robot>

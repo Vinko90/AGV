@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<robot name="agv" xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <xacro:arg name="base_x_size" default="1.000" />
+  <xacro:arg name="base_y_size" default="0.900" />
+  <xacro:arg name="base_z_size" default="2.000" />
+
+  <xacro:arg name="base_x_offset" default="0.000" />
+  <xacro:arg name="base_z_offset" default="0.050" />
+
+  <xacro:include filename="$(find agv_description)/urdf/agv.urdf.xacro" />
+  <xacro:agv_robot />
+
+</robot>

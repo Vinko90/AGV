@@ -1,0 +1,5 @@
+<launch>
+	<arg name="isTest" default="false" />
+	<arg name="stageArgs" value="$(find agv_exploration_test)/worlds/maze/maze_pos2.world" />
+	<include file="$(find agv_exploration)/launch/default.launch" pass_all_args="true" />
+</launch>
